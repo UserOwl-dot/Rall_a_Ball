@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using TMPro;
 
@@ -12,17 +13,21 @@ public class PlayerController : MonoBehaviour
     private float movementY;
     public float speed = 0;
     public TextMeshProUGUI countText;
+    public TextMeshProUGUI countTextMenuLose;
     private int count;
     private float sizeX = 1;
     private float sizeY = 1;
     private float sizeZ = 1;
     public GameObject winTextObject;
+    public GameObject loseTextObject;
+    public GameObject panelWin;
+    public GameObject panelLose;
+    public GameObject pause;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        winTextObject.SetActive(false);
         count = 0;
         rb = GetComponent<Rigidbody>();
         SetCountText();
@@ -59,7 +64,9 @@ public class PlayerController : MonoBehaviour
         countText.text = "Count: " + count.ToString();
         if (count >= 18)
         {
-            winTextObject.SetActive(true);
+            pause.SetActive(false);
+            countText.SetText("");
+            panelWin.SetActive(true);
             Destroy(GameObject.FindGameObjectWithTag("Enemy"));
         }
     }
@@ -67,11 +74,15 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            pause.SetActive(false);
             // Destroy the current object
             Destroy(gameObject);
+            countText.SetText("");
             // Update the winText to display "You Lose!"
-            winTextObject.gameObject.SetActive(true);
-            winTextObject.GetComponent<TextMeshProUGUI>().text = "You Lose!";
+            loseTextObject.gameObject.SetActive(true);
+            loseTextObject.GetComponent<TextMeshProUGUI>().text = "You Lose!";
+            countTextMenuLose.text = "Вы набрали: " + count.ToString() + " очков";
+            panelLose.SetActive(true);
         }
     }
 }
