@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class EnemyMovement : MonoBehaviour
 {
+    public GameObject effect;
     public Transform player;
     private NavMeshAgent navMeshAgent;
 

@@ -5,10 +5,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using TMPro;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
-    private Rigidbody rb;
+    public GameObject effect;
+    public Rigidbody rb;
     private float movementX;
     private float movementY;
     public float speed = 0;
@@ -39,6 +41,23 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(movement * speed);
     }
 
+    private void Update()
+    {
+        if (rb.position.y < -10f)
+        {
+            Debug.Log("Yes");
+            pause.SetActive(false);
+            // Destroy the current object
+            Destroy(gameObject);
+            countText.SetText("");
+            // Update the winText to display "You Lose!"
+            loseTextObject.gameObject.SetActive(true);
+            loseTextObject.GetComponent<TextMeshProUGUI>().text = "You Lose!";
+            countTextMenuLose.text = "Вы набрали: " + count.ToString() + " очков";
+            panelLose.SetActive(true);
+        }
+    }
+
     void OnTriggerEnter(Collider other)
     {
         other.gameObject.SetActive(false);
@@ -48,6 +67,7 @@ public class PlayerController : MonoBehaviour
             count++;
             sizeX += 0.15f; sizeY += 0.15f; sizeZ += 0.15f;
             transform.localScale = new Vector3(sizeX, sizeY, sizeZ);
+            Instantiate(effect, transform.position, Quaternion.identity);
             SetCountText();
         }
     }
