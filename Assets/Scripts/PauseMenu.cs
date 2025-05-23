@@ -11,6 +11,6 @@ public class pause : MonoBehaviour
     {
         panel.SetActive(true);
         pausemenu.SetActive(false);
-        Time.timeScale = 0;
+        Time.timeScale = 0f;
     }
 }
