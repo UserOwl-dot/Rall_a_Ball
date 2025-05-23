@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Level1.unity
     guid: beaefdbce3bda7743aa6a854c2e419a3
   - enabled: 1
-    path: Assets/Scenes/Level2.unity
+    path: Assets/Scenes/potom.unity
     guid: 22d11aeb1b8698f43976687815615d34
+  - enabled: 1
+    path: Assets/Scenes/Level2.unity
+    guid: 5a3cbc84dc9e74943af5672285e378f7
   m_configObjects: {}

@@ -25,15 +25,19 @@ public class PlayerController : MonoBehaviour
     public GameObject panelWin;
     public GameObject panelLose;
     public GameObject pause;
+    
 
 
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 0f;
         count = 0;
         rb = GetComponent<Rigidbody>();
         SetCountText();
     }
+
+
 
     private void FixedUpdate()
     {
