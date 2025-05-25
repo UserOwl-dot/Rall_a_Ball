@@ -25,6 +25,9 @@ public class PlayerController : MonoBehaviour
     public GameObject panelWin;
     public GameObject panelLose;
     public GameObject pause;
+    private AudioSource destroyCub;
+    public AudioSource Win;
+    public AudioSource Lose;
     
 
 
@@ -34,6 +37,10 @@ public class PlayerController : MonoBehaviour
         Time.timeScale = 0f;
         count = 0;
         rb = GetComponent<Rigidbody>();
+        destroyCub = GetComponent<AudioSource>();
+
+        Win.mute = true;
+        Lose.mute = true;
         SetCountText();
     }
 
@@ -59,6 +66,7 @@ public class PlayerController : MonoBehaviour
             loseTextObject.GetComponent<TextMeshProUGUI>().text = "You Lose!";
             countTextMenuLose.text = "Вы набрали: " + count.ToString() + " очков";
             panelLose.SetActive(true);
+            Lose.mute = false; Lose.Play();
         }
     }
 
@@ -69,6 +77,8 @@ public class PlayerController : MonoBehaviour
         {
             other.gameObject.SetActive(false);
             count++;
+            destroyCub.mute = false;
+            destroyCub.Play();
             sizeX += 0.15f; sizeY += 0.15f; sizeZ += 0.15f;
             transform.localScale = new Vector3(sizeX, sizeY, sizeZ);
             Instantiate(effect, transform.position, Quaternion.identity);
@@ -86,12 +96,14 @@ public class PlayerController : MonoBehaviour
     void SetCountText()
     {
         countText.text = "Count: " + count.ToString();
-        if (count >= 18)
+        if (count >=18)
         {
             pause.SetActive(false);
             countText.SetText("");
             panelWin.SetActive(true);
             Destroy(GameObject.FindGameObjectWithTag("Enemy"));
+            Win.mute = false;
+            Win.Play();
         }
     }
     private void OnCollisionEnter(Collision collision)
@@ -107,6 +119,7 @@ public class PlayerController : MonoBehaviour
             loseTextObject.GetComponent<TextMeshProUGUI>().text = "You Lose!";
             countTextMenuLose.text = "Вы набрали: " + count.ToString() + " очков";
             panelLose.SetActive(true);
+            Lose.mute = false; Lose.Play();
         }
     }
 }
