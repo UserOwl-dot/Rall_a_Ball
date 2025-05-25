@@ -12,12 +12,12 @@ public class GameManager : MonoBehaviour
     {
         completeLevel.SetActive(true);
         pause.SetActive(false);
-        float t = Time.time;
-        while (t < Time.time + 20f)
-        {
-            t += 1f;
-        }
-        //Time.timeScale = 0;
+        //float t = Time.time;
+        //while (t < Time.time + 20f)
+        //{
+        //    t += 1f;
+        //}
+        ////Time.timeScale = 0;
     }
 
     public void FinishGame()
